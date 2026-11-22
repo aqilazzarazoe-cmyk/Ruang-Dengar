@@ -1,0 +1,2759 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruang Dengar — Ruang Aman Untuk Perasaanmu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg-page: #f2f7f3;
+      --bg-alt: #e4efe7;
+      --bg-card: #fbfdfb;
+      --ink-primary: #14261c;
+      --ink-secondary: #3f574a;
+      --ink-muted: #657f71;
+      --forest-dark: #13442c;
+      --forest-mid: #1e6642;
+      --forest-soft: #d7eadc;
+      --terracotta: #9e3b28;
+      --terracotta-soft: #f9eae7;
+      --border-subtle: #c8dcd0;
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --shadow-soft: 0 12px 32px rgba(19, 68, 44, 0.07);
+      --font-serif: "Fraunces", Georgia, serif;
+      --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--ink-primary);
+      background-color: var(--bg-page);
+      background-image:
+        radial-gradient(circle at 12% 8%, rgba(46, 125, 87, 0.08), transparent 42%),
+        radial-gradient(circle at 88% 45%, rgba(30, 102, 66, 0.07), transparent 45%);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin-inline: auto;
+    }
+
+    .section {
+      padding: 84px 0;
+    }
+
+    .section-alt {
+      background-color: var(--bg-alt);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    /* Top Crisis Bar */
+    .crisis-bar {
+      background-color: var(--terracotta);
+      color: #fff;
+      font-size: 0.85rem;
+      padding: 9px 0;
+    }
+
+    .crisis-inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .crisis-link {
+      background: rgba(255, 255, 255, 0.16);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .crisis-link:hover {
+      background: rgba(255, 255, 255, 0.26);
+    }
+
+    /* Header & Nav */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(242, 247, 243, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 68px;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+    }
+
+    .brand-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--forest-mid);
+    }
+
+    .brand small {
+      color: var(--terracotta);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+    }
+
+    .nav-links a:hover {
+      color: var(--forest-dark);
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    /* Typography Helpers */
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin: 0 0 10px;
+    }
+
+    .eyebrow.light {
+      color: #cde3d8;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      line-height: 1.18;
+      margin-top: 0;
+      color: var(--ink-primary);
+    }
+
+    h2 {
+      font-size: clamp(1.85rem, 3.2vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+
+    .section-sub {
+      max-width: 640px;
+      color: var(--ink-secondary);
+      margin: 0;
+    }
+
+    .section-head {
+      margin-bottom: 40px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease, background-color 0.2s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--forest-dark);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--forest-mid);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      color: var(--ink-primary);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--forest-dark);
+      background-color: var(--forest-soft);
+    }
+
+    .btn-light {
+      background-color: #fff;
+      color: var(--forest-dark);
+    }
+
+    .btn-text {
+      background: none;
+      border: none;
+      color: var(--ink-secondary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      padding: 6px 10px;
+    }
+
+    .btn-text:hover {
+      color: var(--ink-primary);
+      text-decoration: underline;
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 56px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .hero-title {
+      font-size: clamp(2.4rem, 4.6vw, 3.6rem);
+      margin-bottom: 18px;
+    }
+
+    .hero-lead {
+      font-size: 1.05rem;
+      color: var(--ink-secondary);
+      max-width: 540px;
+      margin-bottom: 26px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .inline-scroll {
+      display: inline-block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--forest-dark);
+      border-bottom: 1px solid var(--forest-dark);
+      padding-bottom: 2px;
+    }
+
+    .nature-card {
+      position: relative;
+      min-height: 400px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(165deg, #2d6a4c 0%, #17432e 55%, #0d2619 100%);
+      color: #fff;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .scenery-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .nature-badge,
+    .nature-ring,
+    .nature-caption {
+      position: relative;
+      z-index: 1;
+    }
+
+    .nature-badge {
+      align-self: flex-start;
+      background: #fbfdfb;
+      color: var(--ink-primary);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+    }
+
+    .nature-badge small {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--terracotta);
+      font-weight: 600;
+    }
+
+    .sparkle {
+      color: var(--terracotta);
+      font-size: 1.1rem;
+    }
+
+    .nature-ring {
+      align-self: flex-end;
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: rgba(13, 38, 25, 0.28);
+      backdrop-filter: blur(3px);
+      border: 1.5px solid rgba(255, 255, 255, 0.62);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      line-height: 1.4;
+    }
+
+    .nature-caption {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.96);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Pillars */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .pillar-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pillar-num {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--terracotta);
+      margin-bottom: 10px;
+    }
+
+    .pillar-card p {
+      color: var(--ink-secondary);
+      font-size: 0.95rem;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag-row span {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: var(--forest-soft);
+      color: var(--forest-dark);
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    /* Assessment */
+    .assessment-box {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .assessment-intro p {
+      color: var(--ink-secondary);
+    }
+
+    .meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0 24px;
+    }
+
+    .meta-pills span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      background: var(--forest-soft);
+      color: var(--forest-dark);
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .assessment-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      margin-top: 0;
+    }
+
+    .observed-list {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .observed-list li {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 600;
+      padding: 12px 14px;
+      background: var(--bg-page);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .observed-list span {
+      color: var(--terracotta);
+      font-size: 0.85rem;
+    }
+
+    .muted-note {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      margin: 0;
+    }
+
+    .progress-bar-wrap {
+      height: 6px;
+      background: var(--bg-alt);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 10%;
+      background: var(--forest-dark);
+      transition: width 0.25s ease;
+    }
+
+    .question-counter {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--terracotta);
+      margin: 0 0 6px;
+    }
+
+    .scale-options {
+      display: grid;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .scale-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-page);
+      cursor: pointer;
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .scale-btn:hover {
+      border-color: var(--forest-dark);
+      background: var(--forest-soft);
+    }
+
+    .option-letter {
+      width: 28px;
+      height: 28px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--forest-soft);
+      color: var(--forest-dark);
+      border: 1px solid #b5d3c0;
+    }
+
+    .scale-btn:hover .option-letter {
+      background: var(--forest-dark);
+      color: #fff;
+      border-color: var(--forest-dark);
+    }
+
+    .result-bars {
+      margin: 18px 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .bar-row label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .bar-track {
+      height: 8px;
+      background: var(--bg-alt);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      background: var(--forest-mid);
+      border-radius: 999px;
+    }
+
+    .disclaimer {
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+    }
+
+    /* Ruang Tenang (Box Breathing) */
+    .breath-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px;
+      align-items: center;
+    }
+
+    .breath-info p {
+      color: var(--ink-secondary);
+    }
+
+    .check-list,
+    .info-bullets {
+      padding-left: 18px;
+      color: var(--ink-secondary);
+    }
+
+    .check-list li,
+    .info-bullets li {
+      margin-bottom: 8px;
+    }
+
+    .breath-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .breath-circle-wrap {
+      display: grid;
+      place-items: center;
+      height: 190px;
+      margin-bottom: 12px;
+    }
+
+    .breath-circle {
+      width: 132px;
+      height: 132px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #2e7d57, var(--forest-dark));
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      font-weight: 600;
+      transition: transform 0.6s ease, background-color 0.4s ease;
+      box-shadow: 0 14px 28px rgba(19, 68, 44, 0.22);
+    }
+
+    .breath-circle.expand {
+      transform: scale(1.26);
+    }
+
+    .breath-circle.contract {
+      transform: scale(0.92);
+    }
+
+    .cycle-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1.5px solid var(--forest-dark);
+      background: transparent;
+    }
+
+    .dot.filled {
+      background: var(--forest-dark);
+    }
+
+    .cycle-label {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin: 8px 0 18px;
+    }
+
+    .breath-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Check-in Harian */
+    .checkin-box {
+      max-width: 720px;
+    }
+
+    .checkin-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .checkin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .checkin-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .checkin-tag {
+      background: var(--forest-soft);
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--forest-dark);
+    }
+
+    .checkin-step {
+      display: none;
+    }
+
+    .checkin-step.active {
+      display: block;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .choice-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      padding: 13px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-page);
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .choice-btn:hover {
+      border-color: var(--forest-dark);
+      background: var(--forest-soft);
+    }
+
+    .choice-btn:hover .option-letter {
+      background: var(--forest-dark);
+      color: #fff;
+      border-color: var(--forest-dark);
+    }
+
+    .summary-list {
+      padding-left: 18px;
+      margin: 16px 0 22px;
+      color: var(--ink-secondary);
+    }
+
+    /* Snake & Ladder Board (Angka 1 dari Kiri Bawah ke Atas + Pion Kamu) */
+    .board-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .board-stage {
+      position: relative;
+      background: #ffffff;
+      padding: 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .snake-board {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+    }
+
+    .board-overlay {
+      position: absolute;
+      inset: 14px;
+      width: calc(100% - 28px);
+      height: calc(100% - 28px);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .tile {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      border: 1px solid #cfe0d6;
+      background: #f5f9f6;
+      padding: 7px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tile.start-tile {
+      background: #ebf5ee;
+      border-color: #a9cdb7;
+    }
+
+    .tile.ladder {
+      background: #cde3d3;
+      border-color: #8eb89c;
+    }
+
+    .tile.slide {
+      background: #f8cbb4;
+      border-color: #e39e7e;
+    }
+
+    .tile.slide.deep-slide {
+      background: #f4b8bc;
+      border-color: #df8e95;
+    }
+
+    .tile.finish {
+      background: #133c26;
+      border-color: #133c26;
+      color: #ffffff;
+    }
+
+    .tile-num {
+      font-weight: 700;
+      font-size: 0.86rem;
+      z-index: 2;
+    }
+
+    .tile-hint {
+      font-size: 0.72rem;
+      font-weight: 600;
+      opacity: 0.9;
+      z-index: 2;
+    }
+
+    .finish-flag {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      font-size: 1.05rem;
+    }
+
+    .player-pawn {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      z-index: 6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1px;
+      animation: pawnPop 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: none;
+    }
+
+    @keyframes pawnPop {
+      0% {
+        transform: translateY(-10px) scale(0.84);
+      }
+      100% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .pawn-piece {
+      width: 24px;
+      height: 28px;
+      filter: drop-shadow(0 3px 5px rgba(19, 68, 44, 0.35));
+    }
+
+    .player-token {
+      background: #133c26;
+      border: 1.5px solid #ffffff;
+      color: #ffffff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      line-height: 1.1;
+      padding: 2px 7px;
+      border-radius: 999px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+    }
+
+    .board-status-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .badge-pill {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: var(--forest-soft);
+      color: var(--forest-dark);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .pos-readout {
+      margin: 4px 0;
+      font-size: 0.92rem;
+      color: var(--ink-secondary);
+    }
+
+    .dice-box {
+      font-size: 2.2rem;
+      margin: 14px 0;
+    }
+
+    .board-message {
+      font-size: 0.94rem;
+      color: var(--ink-primary);
+      background: var(--bg-page);
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--forest-mid);
+    }
+
+    .board-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-top: 16px;
+    }
+
+    .board-legend {
+      margin-top: 14px;
+      display: grid;
+      gap: 6px;
+      color: var(--ink-secondary);
+    }
+
+    /* Teman Dengar Chat */
+    .chat-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .chat-info p {
+      color: var(--ink-secondary);
+    }
+
+    .chat-window {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .chat-top {
+      padding: 16px 20px;
+      background: var(--bg-alt);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-dot {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--forest-mid);
+    }
+
+    .chat-messages {
+      height: 300px;
+      overflow-y: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .msg {
+      max-width: 82%;
+      padding: 12px 15px;
+      border-radius: 14px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .msg-bot {
+      align-self: flex-start;
+      background: var(--bg-alt);
+      color: var(--ink-primary);
+    }
+
+    .msg-user {
+      align-self: flex-end;
+      background: var(--forest-dark);
+      color: #fff;
+    }
+
+    .quick-prompts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 18px 12px;
+    }
+
+    .chip-btn {
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-page);
+      color: var(--ink-secondary);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .chip-btn:hover {
+      border-color: var(--forest-dark);
+      color: var(--forest-dark);
+    }
+
+    .chat-form {
+      display: flex;
+      gap: 10px;
+      padding: 14px 18px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .chat-form input {
+      flex: 1;
+      padding: 11px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-page);
+      font-size: 0.92rem;
+    }
+
+    /* Ruang Berbagi (Wall) */
+    .wall-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .wall-intro p {
+      color: var(--ink-secondary);
+    }
+
+    .personal-cta {
+      margin-top: 24px;
+      padding: 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .wall-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wall-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .wall-form input,
+    .wall-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      background: var(--bg-page);
+      font-size: 0.92rem;
+    }
+
+    .wall-feed {
+      margin-top: 24px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .empty-wall {
+      text-align: center;
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+      padding: 18px;
+      border: 1px dashed var(--border-subtle);
+      border-radius: var(--radius-sm);
+      margin: 0;
+    }
+
+    .wall-post {
+      padding: 14px 16px;
+      background: var(--bg-page);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+
+    .wall-post-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .wall-post-head strong {
+      color: var(--forest-dark);
+    }
+
+    .wall-post p {
+      margin: 0;
+      font-size: 0.92rem;
+    }
+
+    /* Closing Banner & Footer */
+    .closing-banner {
+      background: linear-gradient(135deg, var(--forest-dark), #0f2c1e);
+      color: #fff;
+      padding: 64px 0;
+    }
+
+    .closing-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .closing-quote blockquote {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      line-height: 1.3;
+    }
+
+    .closing-quote cite {
+      display: block;
+      margin-top: 12px;
+      font-style: normal;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: #cde3d8;
+    }
+
+    .closing-cta h3 {
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .site-footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-page);
+      font-size: 0.9rem;
+      color: var(--ink-secondary);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-inner p {
+      margin: 4px 0 0;
+      font-style: italic;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(15, 24, 19, 0.55);
+      display: grid;
+      place-items: center;
+      padding: 16px;
+    }
+
+    .modal-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      max-width: 480px;
+      width: 100%;
+      padding: 26px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    .helpline-list {
+      padding-left: 18px;
+      margin: 14px 0 20px;
+      color: var(--ink-secondary);
+    }
+
+    .helpline-list li {
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid,
+      .pillars-grid,
+      .assessment-box,
+      .breath-grid,
+      .board-layout,
+      .chat-layout,
+      .wall-layout,
+      .closing-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: var(--bg-page);
+        border-bottom: 1px solid var(--border-subtle);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 14px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Emergency Bar -->
+  <div class="crisis-bar" role="region" aria-label="Bantuan Darurat">
+    <div class="container crisis-inner">
+      <span>Butuh bantuan segera? Hubungi <strong>119</strong> atau layanan krisis terdekat.</span>
+      <button type="button" class="crisis-link" id="openCrisisModal">Lihat semua kontak krisis ↗</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container nav-inner">
+      <a href="#beranda" class="brand">
+        <span class="brand-dot"></span>
+        <span>ruangdengar<small>.</small></span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#pilar">Tiga Pilar</a>
+        <a href="#asesmen">Asesmen 3 Menit</a>
+        <a href="#ruang-tenang">Ruang Tenang</a>
+        <a href="#checkin">Check-in</a>
+        <a href="#ular-tangga">Ular Tangga</a>
+        <a href="#teman-dengar">Teman Dengar</a>
+        <a href="#ruang-berbagi">Ruang Berbagi</a>
+      </nav>
+
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Buka menu navigasi">
+        ☰
+      </button>
+    </div>
+  </header>
+
+  <main id="beranda">
+    <!-- Hero Section -->
+    <section class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">RUANG AMAN UNTUK PERASAANMU</p>
+          <h1 class="hero-title">
+            Tidak semua hal harus kamu simpan sendirian.
+          </h1>
+          <p class="hero-lead">
+            RuangDengar adalah ruang aman bebas stigma untuk memproses perasaan — dari asesmen tiga menit,
+            latihan napas, hingga teman dengar yang selalu ada. Tanpa penilaian, tanpa syarat.
+          </p>
+          <div class="hero-actions">
+            <a href="#asesmen" class="btn btn-primary">Mulai asesmen ↗</a>
+            <a href="#teman-dengar" class="btn btn-secondary">Cerita ke Teman Dengar</a>
+          </div>
+          <a href="#pilar" class="inline-scroll">Kenali Ruang Dengar ↓</a>
+        </div>
+
+        <div class="hero-visual">
+          <div class="nature-card">
+            <!-- Ilustrasi Pemandangan Bukit, Matahari Senja & Dedaunan -->
+            <svg class="scenery-svg" viewBox="0 0 460 420" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="skyGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#357a59" />
+                  <stop offset="55%" stop-color="#1d5239" />
+                  <stop offset="100%" stop-color="#0f2d1e" />
+                </linearGradient>
+                <radialGradient id="sunGlow" cx="0.72" cy="0.38" r="0.34">
+                  <stop offset="0%" stop-color="#f6c68f" stop-opacity="0.75" />
+                  <stop offset="55%" stop-color="#e39b6d" stop-opacity="0.22" />
+                  <stop offset="100%" stop-color="#1d5239" stop-opacity="0" />
+                </radialGradient>
+                <linearGradient id="hillBack" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#29694a" />
+                  <stop offset="100%" stop-color="#17422d" />
+                </linearGradient>
+                <linearGradient id="hillFront" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#1a4d35" />
+                  <stop offset="100%" stop-color="#0b2217" />
+                </linearGradient>
+              </defs>
+
+              <rect width="460" height="420" fill="url(#skyGrad)" />
+              <rect width="460" height="420" fill="url(#sunGlow)" />
+
+              <!-- Matahari lembut di balik perbukitan -->
+              <circle cx="330" cy="175" r="46" fill="#f7cfa0" opacity="0.28" />
+              <circle cx="330" cy="175" r="28" fill="#fae0be" opacity="0.45" />
+
+              <!-- Awan tipis menenangkan -->
+              <path d="M90 148 Q112 132 138 144 Q158 136 176 150 Q190 158 175 165 L92 165 Q76 158 90 148 Z"
+                    fill="#ffffff" opacity="0.11" />
+              <path d="M245 96 Q264 84 285 93 Q302 88 315 99 Q324 106 310 110 L246 110 Q234 104 245 96 Z"
+                    fill="#ffffff" opacity="0.09" />
+
+              <!-- Bukit belakang -->
+              <path d="M-20 265 Q95 198 220 242 T480 218 L480 430 L-20 430 Z" fill="url(#hillBack)" />
+
+              <!-- Bukit tengah -->
+              <path d="M-20 295 Q130 245 265 282 T480 262 L480 430 L-20 430 Z" fill="#1e563b" opacity="0.92" />
+
+              <!-- Bukit depan -->
+              <path d="M-20 332 Q120 295 245 326 T480 310 L480 430 L-20 430 Z" fill="url(#hillFront)" />
+
+              <!-- Siluet pohon cemara / pepohonan kecil di lereng -->
+              <g fill="#123826" opacity="0.85">
+                <polygon points="68,268 78,236 88,268" />
+                <polygon points="64,278 78,248 92,278" />
+                <polygon points="94,274 102,250 110,274" />
+                <polygon points="392,255 402,224 412,255" />
+                <polygon points="410,260 418,234 426,260" />
+              </g>
+
+              <!-- Ranting & daun botani halus di sudut kanan bawah -->
+              <g stroke="#7bc29b" stroke-width="2" fill="none" opacity="0.45" stroke-linecap="round">
+                <path d="M425 365 Q395 335 375 302" />
+                <path d="M402 340 Q382 336 372 345" />
+                <path d="M388 320 Q398 308 408 310" />
+              </g>
+            </svg>
+
+            <div class="nature-badge">
+              <span class="sparkle">✦</span>
+              <div>
+                <small>pelan-pelan</small>
+                <strong>kamu tidak sendiri</strong>
+              </div>
+            </div>
+            <div class="nature-ring">
+              <span>NAPAS<br />LEBIH<br />DALAM</span>
+            </div>
+            <p class="nature-caption">
+              “Perasaanmu valid, bahkan saat sulit dijelaskan.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 / Tiga Pilar -->
+    <section id="pilar" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">01 / TIGA PILAR RUANG DENGAR</p>
+          <h2>Kita mulai dari memahami diri.</h2>
+          <p class="section-sub">
+            Tiga pilar ini menjadi dasar asesmen RuangDengar — membaca arah pikiran, denyut emosi, dan cara kamu bertahan.
+          </p>
+        </div>
+
+        <div class="pillars-grid">
+          <article class="pillar-card">
+            <span class="pillar-num">01</span>
+            <h3>Reaksi Kognitif</h3>
+            <p>
+              Bagaimana pikiranmu merespons tekanan: kecenderungan berulang, sulit fokus, atau membayangkan kemungkinan terburuk.
+            </p>
+            <div class="tag-row">
+              <span>PIKIRAN BERULANG</span>
+              <span>FOKUS</span>
+              <span>KATASTROFIK</span>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-num">02</span>
+            <h3>Skala Emosi</h3>
+            <p>
+              Seberapa intens dan sering emosimu bergerak naik-turun akhir-akhir ini, dan seberapa besar energi yang terkuras.
+            </p>
+            <div class="tag-row">
+              <span>INTENSITAS</span>
+              <span>ENERGI</span>
+              <span>KETENANGAN</span>
+            </div>
+          </article>
+
+          <article class="pillar-card">
+            <span class="pillar-num">03</span>
+            <h3>Gaya Coping</h3>
+            <p>
+              Caramu menghadapi beban: memberi jeda pada diri, mencari dukungan, dan menjaga rutinitas kecil yang memulihkan.
+            </p>
+            <div class="tag-row">
+              <span>JEDA</span>
+              <span>DUKUNGAN</span>
+              <span>RUTINITAS</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Asesmen 3 Menit (10 Soal + Pilihan A,B,C,D + Download PDF) -->
+    <section id="asesmen" class="section">
+      <div class="container assessment-box">
+        <div class="assessment-intro">
+          <p class="eyebrow">ASESMEN 3 MENIT / KENALI DIRIMU</p>
+          <h2>Tiga menit untuk membaca jeda.</h2>
+          <p>
+            10 pertanyaan reflektif bergaya skrining tervalidasi (PHQ-9 &amp; DASS-21) untuk melihat tiga pilar:
+            Reaksi Kognitif, Skala Emosi, dan Gaya Coping. Bukan diagnosis — hanya titik awal untuk memahami diri.
+          </p>
+          <div class="meta-pills">
+            <span>10 PERTANYAAN</span>
+            <span>PILIHAN A–D &amp; PDF</span>
+          </div>
+          <button type="button" class="btn btn-primary" id="startAssessmentBtn">Mulai asesmen ↗</button>
+        </div>
+
+        <div class="assessment-panel" id="assessmentPanel">
+          <div class="panel-placeholder" id="assessmentPlaceholder">
+            <p class="panel-label">TIGA PILAR YANG DIAMATI</p>
+            <ul class="observed-list">
+              <li><span>01</span> Reaksi Kognitif (4 pertanyaan)</li>
+              <li><span>02</span> Skala Emosi (3 pertanyaan)</li>
+              <li><span>03</span> Gaya Coping (3 pertanyaan)</li>
+            </ul>
+            <p class="muted-note">Tekan “Mulai asesmen” untuk menjawab 10 pertanyaan reflektif dengan pilihan A, B, C, dan D.</p>
+          </div>
+
+          <form id="assessmentForm" class="hidden" novalidate>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" id="assessmentProgress"></div>
+            </div>
+            <p class="question-counter" id="questionCounter">Pertanyaan 1 dari 10</p>
+            <h3 id="questionText"></h3>
+            <div class="scale-options" id="scaleOptions">
+              <button type="button" class="scale-btn" data-option="A" data-val="0">
+                <span class="option-letter">A</span>
+                <span>Tidak pernah / Hampir tidak</span>
+              </button>
+              <button type="button" class="scale-btn" data-option="B" data-val="1">
+                <span class="option-letter">B</span>
+                <span>Beberapa hari</span>
+              </button>
+              <button type="button" class="scale-btn" data-option="C" data-val="2">
+                <span class="option-letter">C</span>
+                <span>Lebih dari separuh waktu</span>
+              </button>
+              <button type="button" class="scale-btn" data-option="D" data-val="3">
+                <span class="option-letter">D</span>
+                <span>Hampir setiap hari</span>
+              </button>
+            </div>
+            <div class="panel-footer">
+              <button type="button" class="btn-text" id="resetAssessmentBtn">Batalkan</button>
+            </div>
+          </form>
+
+          <div id="assessmentResult" class="hidden result-box">
+            <p class="eyebrow">RINGKASAN REFLEKSI</p>
+            <h3 id="resultTitle"></h3>
+            <p id="resultSummary"></p>
+            <div class="result-bars" id="resultBars"></div>
+            <p class="disclaimer">
+              Catatan: Hasil ini bersifat reflektif dan bukan diagnosis medis maupun psikologis.
+            </p>
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary" id="downloadPdfBtn">⬇ Unduh Hasil PDF</button>
+              <button type="button" class="btn btn-secondary" id="retakeAssessmentBtn">Ulangi asesmen</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 / Ruang Tenang (Box Breathing 4-4-4-4) -->
+    <section id="ruang-tenang" class="section section-alt">
+      <div class="container breath-grid">
+        <div class="breath-info">
+          <p class="eyebrow">02 / RUANG TENANG</p>
+          <h2>Kembali ke napas.</h2>
+          <p>
+            Box Breathing — teknik 4-4-4-4 yang dipakai atlet dan tenaga medis untuk menenangkan sistem saraf.
+            Ikuti irama lingkarannya, biarkan tubuhmu yang menentukan sisanya.
+          </p>
+          <ul class="check-list">
+            <li>Menenangkan sistem saraf dalam hitungan menit</li>
+            <li>Menurunkan detak jantung dan tekanan pikiran</li>
+            <li>Membantu fokus kembali pada momen sekarang</li>
+          </ul>
+        </div>
+
+        <div class="breath-widget">
+          <div class="breath-circle-wrap">
+            <div class="breath-circle" id="breathCircle">
+              <span id="breathCount">4</span>
+            </div>
+          </div>
+          <h3 id="breathPhase">Siap?</h3>
+          <p id="breathInstruction">Tekan mulai dan ikuti 5 siklus penuh</p>
+
+          <div class="cycle-dots" id="cycleDots" aria-label="Indikator siklus napas">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <p class="cycle-label" id="cycleLabel">0/5 siklus</p>
+
+          <div class="breath-controls">
+            <button type="button" class="btn btn-primary" id="breathToggleBtn">▶ Mulai</button>
+            <button type="button" class="btn-text" id="breathResetBtn">↻ Atur ulang</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Check-in Harian -->
+    <section id="checkin" class="section">
+      <div class="container checkin-box">
+        <div class="checkin-header">
+          <p class="eyebrow">CHECK-IN HARIAN</p>
+          <h2>Ruang kecil untuk jujur.</h2>
+          <p>Jawab dengan apa adanya. Tidak ada jawaban benar atau salah di sini.</p>
+        </div>
+
+        <div class="checkin-card">
+          <div class="checkin-meta">
+            <span id="checkinStepLabel">01 DARI 03</span>
+            <span class="checkin-tag">CHECK-IN SINGKAT</span>
+          </div>
+
+          <div id="checkinQuestions">
+            <div class="checkin-step active" data-step="0">
+              <h3>Bagaimana rasanya menjalani hari-hari belakangan ini?</h3>
+              <div class="choice-list">
+                <button type="button" class="choice-btn" data-option="A" data-value="Ringan, aku baik-baik saja">
+                  <span class="option-letter">A</span>
+                  <span>Ringan, aku baik-baik saja</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="B" data-value="Sedikit berat, tapi masih tertangani">
+                  <span class="option-letter">B</span>
+                  <span>Sedikit berat, tapi masih tertangani</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="C" data-value="Berat dan mulai mengganggu keseharian">
+                  <span class="option-letter">C</span>
+                  <span>Berat dan mulai mengganggu keseharian</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="D" data-value="Sangat berat, aku butuh didengarkan">
+                  <span class="option-letter">D</span>
+                  <span>Sangat berat, aku butuh didengarkan</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="checkin-step" data-step="1">
+              <h3>Hal apa yang paling menyita perhatian atau energimu hari ini?</h3>
+              <div class="choice-list">
+                <button type="button" class="choice-btn" data-option="A" data-value="Tuntutan kerja atau kuliah/sekolah">
+                  <span class="option-letter">A</span>
+                  <span>Tuntutan kerja atau kuliah/sekolah</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="B" data-value="Relasi, keluarga, atau pertemanan">
+                  <span class="option-letter">B</span>
+                  <span>Relasi, keluarga, atau pertemanan</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="C" data-value="Lelah fisik, tidur kurang, atau overthinking">
+                  <span class="option-letter">C</span>
+                  <span>Lelah fisik, tidur kurang, atau overthinking</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="D" data-value="Sulit dijelaskan dengan satu kata">
+                  <span class="option-letter">D</span>
+                  <span>Sulit dijelaskan dengan satu kata</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="checkin-step" data-step="2">
+              <h3>Langkah kecil apa yang paling ramah untuk dirimu malam/hari ini?</h3>
+              <div class="choice-list">
+                <button type="button" class="choice-btn" data-option="A" data-value="Minum air putih dan tarik napas pelan 2 menit">
+                  <span class="option-letter">A</span>
+                  <span>Minum air putih dan tarik napas pelan 2 menit</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="B" data-value="Menutup notifikasi dan beristirahat lebih awal">
+                  <span class="option-letter">B</span>
+                  <span>Menutup notifikasi dan beristirahat lebih awal</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="C" data-value="Menulis isi kepala atau bercerita pada seseorang">
+                  <span class="option-letter">C</span>
+                  <span>Menulis isi kepala atau bercerita pada seseorang</span>
+                </button>
+                <button type="button" class="choice-btn" data-option="D" data-value="Cukup menjalani apa yang ada tanpa menuntut sempurna">
+                  <span class="option-letter">D</span>
+                  <span>Cukup menjalani apa yang ada tanpa menuntut sempurna</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="checkinSummary" class="hidden checkin-done">
+            <p class="eyebrow">TERCATAT UNTUK DIRIMU</p>
+            <h3>Terima kasih sudah jujur pada diri sendiri.</h3>
+            <ul class="summary-list" id="checkinSummaryList"></ul>
+            <button type="button" class="btn btn-secondary" id="restartCheckinBtn">Isi ulang check-in</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ular Tangga Refleksi (Angka 1 dari Kiri Bawah ke 36 di Kiri Atas + Pion Kamu) -->
+    <section id="ular-tangga" class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <p class="eyebrow">PERMAINAN REFLEKSI</p>
+          <h2>Ular Tangga: Satu langkah dalam satu waktu.</h2>
+          <p class="section-sub">
+            Mulai dari angka 1 di kiri bawah menuju puncak ketenangan (36) di kiri atas. Tangga membantumu naik, sementara ular mengajakmu berhenti sejenak untuk bernapas.
+          </p>
+        </div>
+
+        <div class="board-layout">
+          <div class="board-stage">
+            <div class="snake-board" id="snakeBoard" aria-label="Papan permainan Ular Tangga Refleksi"></div>
+            <svg
+              class="board-overlay"
+              id="boardOverlay"
+              viewBox="0 0 600 600"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            ></svg>
+          </div>
+
+          <aside class="board-sidebar">
+            <div class="board-status-card">
+              <span class="badge-pill">GILIRANMU</span>
+              <p class="pos-readout">Posisi: <strong id="playerPos">START (0)</strong> / 36</p>
+              <p class="pos-readout">Total lempar: <strong id="rollCount">0</strong></p>
+              <div class="dice-box" id="diceDisplay">🎲</div>
+              <p class="board-message" id="boardMessage">
+                Kamu sudah memulai. Mengambil langkah pertama juga merupakan sebuah keberanian.
+              </p>
+
+              <div class="board-actions">
+                <button type="button" class="btn btn-primary" id="rollDiceBtn">Lempar Dadu</button>
+                <button type="button" class="btn btn-secondary" id="resetBoardBtn">Mulai Ulang</button>
+                <button type="button" class="btn-text" id="toggleSoundBtn">Sound On</button>
+              </div>
+            </div>
+
+            <div class="board-legend">
+              <small>🪜 <strong>Tangga (4→12, 11→20, 19→29):</strong> Momentum pemulihan &amp; dukungan</small>
+              <small>🐍 <strong>Ular (16→9, 26→17, 33→24):</strong> Saatnya melambat &amp; menarik napas</small>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 / Teman Dengar -->
+    <section id="teman-dengar" class="section">
+      <div class="container chat-layout">
+        <div class="chat-info">
+          <p class="eyebrow">04 / TEMAN DENGAR</p>
+          <h2>Ada yang ingin didengar?</h2>
+          <p>
+            Teman Dengar adalah pendamping yang dirancang dengan prinsip <em>active listening</em> dan pertolongan
+            pertama psikologis (PFA). Ia mendengarkan tanpa menghakimi, membantumu menamai perasaan, lalu menuntun ke langkah kecil berikutnya.
+          </p>
+          <ul class="info-bullets">
+            <li>Percakapan di browser ini tidak dibagikan ke siapa pun</li>
+            <li>Bukan pengganti terapis atau psikolog profesional</li>
+            <li>Krisis? Gunakan tombol darurat di bagian atas</li>
+          </ul>
+        </div>
+
+        <div class="chat-window">
+          <div class="chat-top">
+            <div>
+              <strong>Teman Dengar</strong>
+              <span class="status-dot">● selalu hadir mendengarkan</span>
+            </div>
+            <button type="button" class="btn-text" id="clearChatBtn">Bersihkan</button>
+          </div>
+
+          <div class="chat-messages" id="chatMessages" aria-live="polite">
+            <div class="msg msg-bot">
+              Hai, aku di sini untuk mendengarkan. Kamu bisa cerita apa saja — tidak ada penilaian di ruang ini.
+              Apa yang sedang kamu rasakan hari ini?
+            </div>
+          </div>
+
+          <div class="quick-prompts">
+            <button type="button" class="chip-btn" data-prompt="Aku merasa lelah dan kewalahan belakangan ini.">
+              Lelah &amp; kewalahan
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Pikiranku berputar terus dan sulit tenang.">
+              Pikiran berputar
+            </button>
+            <button type="button" class="chip-btn" data-prompt="Aku cuma butuh tempat untuk meluapkan rasa.">
+              Butuh meluapkan rasa
+            </button>
+          </div>
+
+          <form class="chat-form" id="chatForm">
+            <input
+              type="text"
+              id="chatInput"
+              placeholder="Ceritakan apa yang kamu rasakan..."
+              autocomplete="off"
+              required
+            />
+            <button type="submit" class="btn btn-primary">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 / Ruang Berbagi (Dinding Anonim) -->
+    <section id="ruang-berbagi" class="section section-alt">
+      <div class="container wall-layout">
+        <div class="wall-intro">
+          <p class="eyebrow">05 / RUANG BERBAGI</p>
+          <h2>Kamu tidak sendirian.</h2>
+          <p>
+            Dinding berbagi anonim Ruang Dengar. Ceritakan apa pun — kecil atau besar — dan temukan bahwa banyak
+            orang merasakan hal serupa. Tanpa akun, tanpa penilaian.
+          </p>
+          <div class="personal-cta">
+            <span>Butuh ruang yang lebih personal?</span>
+            <a href="#teman-dengar" class="btn btn-secondary">Bicara dengan Teman Dengar ↗</a>
+          </div>
+        </div>
+
+        <div class="wall-card">
+          <p class="eyebrow">👥 BAGIKAN CERITAMU</p>
+          <h3>Tulis di <em>dinding.</em></h3>
+
+          <form id="wallForm" class="wall-form">
+            <label class="sr-only" for="wallName">Nama (boleh anonim)</label>
+            <input type="text" id="wallName" placeholder="Nama (boleh anonim)" maxlength="40" />
+
+            <label class="sr-only" for="wallText">Apa yang sedang kamu rasakan atau pikirkan hari ini?</label>
+            <textarea
+              id="wallText"
+              rows="4"
+              placeholder="Apa yang sedang kamu rasakan atau pikirkan hari ini?"
+              maxlength="400"
+              required
+            ></textarea>
+
+            <button type="submit" class="btn btn-primary">➤ Bagikan</button>
+          </form>
+
+          <div class="wall-feed" id="wallFeed">
+            <p class="empty-wall" id="emptyWallMsg">
+              Belum ada cerita. Jadilah yang pertama berbagi — ruang ini menunggumu.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing & Next Steps -->
+    <section class="closing-banner">
+      <div class="container closing-grid">
+        <div class="closing-quote">
+          <blockquote>
+            “Berani mencari bantuan adalah bentuk sayang pada diri sendiri.”
+            <cite>— RuangDengar</cite>
+          </blockquote>
+        </div>
+        <div class="closing-cta">
+          <p class="eyebrow light">LANGKAH BERIKUTNYA</p>
+          <h3>Ingin bicara dengan psikolog?</h3>
+          <button type="button" class="btn btn-light" id="openCrisisFromClosing">Cari teman bicara ↗</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Ruang Dengar</strong>
+        <p>“Bertahan hari ini sudah cukup.”</p>
+      </div>
+      <div class="footer-meta">
+        <span>© 2026 Ruang Dengar — Setiap perasaan berhak didengar.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Crisis Modal -->
+  <div class="modal-backdrop hidden" id="crisisModal" role="dialog" aria-modal="true" aria-labelledby="crisisTitle">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="crisisTitle">Bantuan &amp; Layanan Krisis</h3>
+        <button type="button" class="modal-close" id="closeCrisisModal" aria-label="Tutup">✕</button>
+      </div>
+      <p>
+        Jika kamu atau orang terdekat sedang berada dalam kondisi krisis atau memiliki pikiran untuk menyakiti diri,
+        segera hubungi layanan dukungan profesional:
+      </p>
+      <ul class="helpline-list">
+        <li><strong>Call Center Darurat Medis / Krisis:</strong> 119 (Indonesia)</li>
+        <li><strong>Layanan Dukungan Psikologis Komunitas / RS Jiwa Terdekat:</strong> Hubungi fasilitas kesehatan atau tenaga profesional berlisensi di kotamu.</li>
+        <li><strong>Orang Terpercaya:</strong> Sahabat, keluarga, atau konselor yang aman untuk diajak bicara saat ini juga.</li>
+      </ul>
+      <button type="button" class="btn btn-primary" id="closeCrisisBtn">Saya mengerti</button>
+    </div>
+  </div>
+
+  <!-- jsPDF untuk unduh hasil asesmen langsung ke file PDF -->
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      /* =========================================================
+         1. MOBILE NAV & CRISIS MODAL
+         ========================================================= */
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+
+      menuToggle?.addEventListener("click", () => {
+        navLinks?.classList.toggle("open");
+      });
+
+      navLinks?.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => navLinks.classList.remove("open"));
+      });
+
+      const crisisModal = document.getElementById("crisisModal");
+      const openCrisisButtons = [
+        document.getElementById("openCrisisModal"),
+        document.getElementById("openCrisisFromClosing"),
+      ];
+      const closeCrisisButtons = [
+        document.getElementById("closeCrisisModal"),
+        document.getElementById("closeCrisisBtn"),
+      ];
+
+      openCrisisButtons.forEach((btn) =>
+        btn?.addEventListener("click", () => crisisModal?.classList.remove("hidden"))
+      );
+
+      closeCrisisButtons.forEach((btn) =>
+        btn?.addEventListener("click", () => crisisModal?.classList.add("hidden"))
+      );
+
+      crisisModal?.addEventListener("click", (e) => {
+        if (e.target === crisisModal) crisisModal.classList.add("hidden");
+      });
+
+      /* =========================================================
+         2. ASESMEN 3 MENIT — 10 PERTANYAAN (PILIHAN A,B,C,D) + PDF
+         ========================================================= */
+      const assessmentQuestions = [
+        { pillar: "kognitif", text: "Pikiran terasa berputar-putar atau sulit berhenti saat sedang beristirahat?" },
+        { pillar: "kognitif", text: "Sulit memusatkan perhatian pada pekerjaan, bacaan, atau hal sederhana?" },
+        { pillar: "kognitif", text: "Cenderung langsung membayangkan skenario terburuk ketika ada masalah?" },
+        { pillar: "kognitif", text: "Merasa terbebani saat harus mengambil keputusan kecil sehari-hari?" },
+        { pillar: "emosi", text: "Merasa mudah tegang, cemas, atau gelisah tanpa alasan yang jelas?" },
+        { pillar: "emosi", text: "Suasana hati naik-turun dengan cepat dalam beberapa hari terakhir?" },
+        { pillar: "emosi", text: "Energi emosional terasa cepat habis atau kehilangan minat pada hal biasa?" },
+        { pillar: "coping", text: "Kesulitan memberi jeda istirahat ketika tanggung jawab menumpuk?" },
+        { pillar: "coping", text: "Cenderung memendam beban sendirian meski sebenarnya butuh didengarkan?" },
+        { pillar: "coping", text: "Rutinitas dasar seperti tidur, makan, atau menenangkan diri terasa berantakan?" },
+      ];
+
+      const startAssessmentBtn = document.getElementById("startAssessmentBtn");
+      const assessmentPlaceholder = document.getElementById("assessmentPlaceholder");
+      const assessmentForm = document.getElementById("assessmentForm");
+      const assessmentResult = document.getElementById("assessmentResult");
+      const questionCounter = document.getElementById("questionCounter");
+      const questionText = document.getElementById("questionText");
+      const assessmentProgress = document.getElementById("assessmentProgress");
+      const resetAssessmentBtn = document.getElementById("resetAssessmentBtn");
+      const retakeAssessmentBtn = document.getElementById("retakeAssessmentBtn");
+      const downloadPdfBtn = document.getElementById("downloadPdfBtn");
+
+      let qIndex = 0;
+      let scores = { kognitif: 0, emosi: 0, coping: 0 };
+      let userAnswersLog = [];
+      let latestAssessmentReport = null;
+
+      function renderQuestion() {
+        const item = assessmentQuestions[qIndex];
+        questionCounter.textContent = `Pertanyaan ${qIndex + 1} dari ${assessmentQuestions.length}`;
+        questionText.textContent = item.text;
+        assessmentProgress.style.width = `${((qIndex + 1) / assessmentQuestions.length) * 100}%`;
+      }
+
+      function showAssessmentResult() {
+        assessmentForm.classList.add("hidden");
+        assessmentResult.classList.remove("hidden");
+
+        const pctKognitif = Math.round((scores.kognitif / 12) * 100);
+        const pctEmosi = Math.round((scores.emosi / 9) * 100);
+        const pctCoping = Math.round((scores.coping / 9) * 100);
+        const total = scores.kognitif + scores.emosi + scores.coping;
+
+        const titleEl = document.getElementById("resultTitle");
+        const summaryEl = document.getElementById("resultSummary");
+        const barsEl = document.getElementById("resultBars");
+
+        let statusTitle = "";
+        let statusSummary = "";
+
+        if (total <= 9) {
+          statusTitle = "Ritme Relatif Tenang";
+          statusSummary =
+            "Saat ini kamu tampak cukup mampu menjaga keseimbangan. Pertahankan kebiasaan kecil yang menenangkan dirimu.";
+        } else if (total <= 19) {
+          statusTitle = "Ada Beban yang Perlu Diperhatikan";
+          statusSummary =
+            "Beberapa bagian pikiran atau emosimu sedang bekerja lebih keras. Coba beri jeda napas singkat dan luangkan waktu pulih.";
+        } else {
+          statusTitle = "Kamu Sedang Memikul Banyak Hal";
+          statusSummary =
+            "Tekanan terasa cukup tinggi akhir-akhir ini. Kamu tidak harus menanggungnya sendirian — pertimbangkan untuk bercerita dengan orang terpercaya atau profesional.";
+        }
+
+        titleEl.textContent = statusTitle;
+        summaryEl.textContent = statusSummary;
+
+        latestAssessmentReport = {
+          date: new Date().toLocaleDateString("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+          }),
+          statusTitle,
+          statusSummary,
+          total,
+          pctKognitif,
+          pctEmosi,
+          pctCoping,
+          answers: [...userAnswersLog],
+        };
+
+        barsEl.innerHTML = `
+          <div class="bar-row">
+            <label><span>Reaksi Kognitif</span><span>${pctKognitif}%</span></label>
+            <div class="bar-track"><div class="bar-fill" style="width:${pctKognitif}%"></div></div>
+          </div>
+          <div class="bar-row">
+            <label><span>Skala Emosi</span><span>${pctEmosi}%</span></label>
+            <div class="bar-track"><div class="bar-fill" style="width:${pctEmosi}%"></div></div>
+          </div>
+          <div class="bar-row">
+            <label><span>Gaya Coping (Kebutuhan Jeda)</span><span>${pctCoping}%</span></label>
+            <div class="bar-track"><div class="bar-fill" style="width:${pctCoping}%"></div></div>
+          </div>
+        `;
+      }
+
+      function downloadAssessmentPDF() {
+        if (!latestAssessmentReport) return;
+
+        if (!window.jspdf || !window.jspdf.jsPDF) {
+          window.print();
+          return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF({ unit: "mm", format: "a4" });
+        const r = latestAssessmentReport;
+
+        doc.setFillColor(19, 68, 44);
+        doc.rect(0, 0, 210, 34, "F");
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.text("Ruang Dengar — Ringkasan Asesmen Diri", 16, 16);
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(`Tanggal Refleksi: ${r.date}  |  Skor Total: ${r.total} / 30`, 16, 25);
+
+        let y = 46;
+        doc.setTextColor(20, 38, 28);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text(r.statusTitle, 16, y);
+
+        y += 7;
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10.5);
+        doc.setTextColor(63, 87, 74);
+        const wrappedSummary = doc.splitTextToSize(r.statusSummary, 178);
+        doc.text(wrappedSummary, 16, y);
+        y += wrappedSummary.length * 5.5 + 6;
+
+        doc.setDrawColor(200, 220, 208);
+        doc.line(16, y, 194, y);
+        y += 8;
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11.5);
+        doc.setTextColor(19, 68, 44);
+        doc.text("Rincian Tiga Pilar Ruang Dengar", 16, y);
+        y += 7;
+
+        const pillars = [
+          { name: "01. Reaksi Kognitif", val: r.pctKognitif },
+          { name: "02. Skala Emosi", val: r.pctEmosi },
+          { name: "03. Gaya Coping (Kebutuhan Jeda)", val: r.pctCoping },
+        ];
+
+        pillars.forEach((p) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(10);
+          doc.setTextColor(20, 38, 28);
+          doc.text(`${p.name}: ${p.val}%`, 16, y);
+
+          doc.setFillColor(228, 239, 231);
+          doc.rect(90, y - 3.5, 104, 4.5, "F");
+          doc.setFillColor(30, 102, 66);
+          doc.rect(90, y - 3.5, (104 * p.val) / 100, 4.5, "F");
+          y += 9;
+        });
+
+        y += 3;
+        doc.line(16, y, 194, y);
+        y += 8;
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11.5);
+        doc.setTextColor(19, 68, 44);
+        doc.text("Catatan 10 Pertanyaan Reflektif", 16, y);
+        y += 7;
+
+        r.answers.forEach((ans, idx) => {
+          if (y > 265) {
+            doc.addPage();
+            y = 20;
+          }
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9.5);
+          doc.setTextColor(20, 38, 28);
+          const qLine = doc.splitTextToSize(`${idx + 1}. ${ans.question}`, 176);
+          doc.text(qLine, 16, y);
+          y += qLine.length * 4.5;
+
+          doc.setTextColor(101, 127, 113);
+          doc.text(`Jawaban: ${ans.option}. ${ans.label}`, 20, y);
+          y += 6;
+        });
+
+        if (y > 268) {
+          doc.addPage();
+          y = 20;
+        }
+        y += 4;
+        doc.setFontSize(8.5);
+        doc.setTextColor(120, 120, 120);
+        doc.text(
+          "Catatan: Dokumen ini adalah alat refleksi pribadi dan bukan diagnosis klinis. Jika butuh bantuan segera, hubungi 119.",
+          16,
+          y
+        );
+
+        doc.save("Hasil-Asesmen-Ruang-Dengar.pdf");
+      }
+
+      function resetAssessment() {
+        qIndex = 0;
+        scores = { kognitif: 0, emosi: 0, coping: 0 };
+        userAnswersLog = [];
+        assessmentForm.classList.add("hidden");
+        assessmentResult.classList.add("hidden");
+        assessmentPlaceholder.classList.remove("hidden");
+      }
+
+      startAssessmentBtn?.addEventListener("click", () => {
+        qIndex = 0;
+        scores = { kognitif: 0, emosi: 0, coping: 0 };
+        userAnswersLog = [];
+        assessmentPlaceholder.classList.add("hidden");
+        assessmentResult.classList.add("hidden");
+        assessmentForm.classList.remove("hidden");
+        renderQuestion();
+      });
+
+      document.querySelectorAll(".scale-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const val = Number(btn.dataset.val || 0);
+          const option = btn.dataset.option || "A";
+          const label = btn.querySelectorAll("span")[1]?.textContent?.trim() || "";
+          const item = assessmentQuestions[qIndex];
+          scores[item.pillar] += val;
+          userAnswersLog.push({ question: item.text, option, label, score: val });
+          qIndex += 1;
+
+          if (qIndex < assessmentQuestions.length) {
+            renderQuestion();
+          } else {
+            showAssessmentResult();
+          }
+        });
+      });
+
+      downloadPdfBtn?.addEventListener("click", downloadAssessmentPDF);
+      resetAssessmentBtn?.addEventListener("click", resetAssessment);
+      retakeAssessmentBtn?.addEventListener("click", () => {
+        qIndex = 0;
+        scores = { kognitif: 0, emosi: 0, coping: 0 };
+        userAnswersLog = [];
+        assessmentResult.classList.add("hidden");
+        assessmentForm.classList.remove("hidden");
+        renderQuestion();
+      });
+
+      /* =========================================================
+         3. RUANG TENANG — BOX BREATHING (4-4-4-4, 5 SIKLUS)
+         ========================================================= */
+      const phases = [
+        { name: "Tarik napas", hint: "Hirup perlahan lewat hidung", mode: "expand" },
+        { name: "Tahan napas", hint: "Jaga udara tetap tenang di dalam", mode: "expand" },
+        { name: "Hembuskan", hint: "Buang napas perlahan dan lembut", mode: "contract" },
+        { name: "Jeda kosong", hint: "Diam sejenak sebelum siklus berikutnya", mode: "contract" },
+      ];
+
+      const breathCircle = document.getElementById("breathCircle");
+      const breathCount = document.getElementById("breathCount");
+      const breathPhase = document.getElementById("breathPhase");
+      const breathInstruction = document.getElementById("breathInstruction");
+      const cycleDots = Array.from(document.querySelectorAll("#cycleDots .dot"));
+      const cycleLabel = document.getElementById("cycleLabel");
+      const breathToggleBtn = document.getElementById("breathToggleBtn");
+      const breathResetBtn = document.getElementById("breathResetBtn");
+
+      let breathTimer = null;
+      let isBreathing = false;
+      let phaseIdx = 0;
+      let secLeft = 4;
+      let completedCycles = 0;
+      const targetCycles = 5;
+
+      function updateCycleUI() {
+        cycleDots.forEach((dot, i) => dot.classList.toggle("filled", i < completedCycles));
+        cycleLabel.textContent = `${completedCycles}/${targetCycles} siklus`;
+      }
+
+      function stepBreath() {
+        const current = phases[phaseIdx];
+        breathPhase.textContent = current.name;
+        breathInstruction.textContent = current.hint;
+        breathCount.textContent = String(secLeft);
+
+        breathCircle.classList.remove("expand", "contract");
+        if (current.mode) breathCircle.classList.add(current.mode);
+
+        secLeft -= 1;
+
+        if (secLeft < 0) {
+          secLeft = 3;
+          phaseIdx += 1;
+
+          if (phaseIdx >= phases.length) {
+            phaseIdx = 0;
+            completedCycles += 1;
+            updateCycleUI();
+
+            if (completedCycles >= targetCycles) {
+              stopBreath();
+              breathPhase.textContent = "Selesai";
+              breathInstruction.textContent = "5 siklus napas selesai. Rasakan perbedaan di tubuhmu.";
+              breathCount.textContent = "✓";
+              breathCircle.classList.remove("expand", "contract");
+            }
+          }
+        }
+      }
+
+      function startBreath() {
+        if (completedCycles >= targetCycles) {
+          completedCycles = 0;
+          updateCycleUI();
+        }
+        isBreathing = true;
+        breathToggleBtn.textContent = "❚❚ Jeda";
+        phaseIdx = 0;
+        secLeft = 4;
+        stepBreath();
+        breathTimer = setInterval(stepBreath, 1000);
+      }
+
+      function stopBreath() {
+        isBreathing = false;
+        clearInterval(breathTimer);
+        breathTimer = null;
+        breathToggleBtn.textContent = "▶ Mulai";
+      }
+
+      function resetBreath() {
+        stopBreath();
+        phaseIdx = 0;
+        secLeft = 4;
+        completedCycles = 0;
+        updateCycleUI();
+        breathCount.textContent = "4";
+        breathPhase.textContent = "Siap?";
+        breathInstruction.textContent = "Tekan mulai dan ikuti 5 siklus penuh";
+        breathCircle.classList.remove("expand", "contract");
+      }
+
+      breathToggleBtn?.addEventListener("click", () => {
+        if (isBreathing) stopBreath();
+        else startBreath();
+      });
+
+      breathResetBtn?.addEventListener("click", resetBreath);
+
+      /* =========================================================
+         4. CHECK-IN HARIAN (3 LANGKAH)
+         ========================================================= */
+      const steps = Array.from(document.querySelectorAll(".checkin-step"));
+      const stepLabel = document.getElementById("checkinStepLabel");
+      const checkinSummary = document.getElementById("checkinSummary");
+      const checkinSummaryList = document.getElementById("checkinSummaryList");
+      const restartCheckinBtn = document.getElementById("restartCheckinBtn");
+
+      let currentStep = 0;
+      const checkinAnswers = [];
+
+      document.querySelectorAll(".choice-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const opt = btn.dataset.option || "";
+          const val = btn.dataset.value || "";
+          checkinAnswers[currentStep] = opt ? `${opt}. ${val}` : val;
+          currentStep += 1;
+
+          if (currentStep < steps.length) {
+            steps.forEach((s, idx) => s.classList.toggle("active", idx === currentStep));
+            stepLabel.textContent = `0${currentStep + 1} DARI 03`;
+          } else {
+            steps.forEach((s) => s.classList.remove("active"));
+            stepLabel.textContent = "SELESAI";
+            checkinSummaryList.innerHTML = `
+              <li><strong>Kondisi hari-hari:</strong> ${checkinAnswers[0]}</li>
+              <li><strong>Fokus energi:</strong> ${checkinAnswers[1]}</li>
+              <li><strong>Langkah ramah diri:</strong> ${checkinAnswers[2]}</li>
+            `;
+            checkinSummary.classList.remove("hidden");
+          }
+        });
+      });
+
+      restartCheckinBtn?.addEventListener("click", () => {
+        currentStep = 0;
+        checkinAnswers.length = 0;
+        checkinSummary.classList.add("hidden");
+        stepLabel.textContent = "01 DARI 03";
+        steps.forEach((s, idx) => s.classList.toggle("active", idx === 0));
+      });
+
+      /* =========================================================
+         5. ULAR TANGGA REFLEKSI (ANGKA 1 DARI KIRI BAWAH KE ATAS + PION)
+         ========================================================= */
+      const boardEl = document.getElementById("snakeBoard");
+      const boardOverlay = document.getElementById("boardOverlay");
+      const playerPosEl = document.getElementById("playerPos");
+      const rollCountEl = document.getElementById("rollCount");
+      const diceDisplay = document.getElementById("diceDisplay");
+      const boardMessage = document.getElementById("boardMessage");
+      const rollDiceBtn = document.getElementById("rollDiceBtn");
+      const resetBoardBtn = document.getElementById("resetBoardBtn");
+      const toggleSoundBtn = document.getElementById("toggleSoundBtn");
+
+      const ladders = { 4: 12, 11: 20, 19: 29 };
+      const snakes = { 16: 9, 26: 17, 33: 24 };
+
+      const tileNotes = {
+        4: "🪜 Tangga ke 12: Menemukan satu hal kecil yang patut disyukuri hari ini.",
+        11: "🪜 Tangga ke 20: Berani meminta bantuan bukan tanda lemah.",
+        19: "🪜 Tangga ke 29: Istirahat sejenak membantu pikiran kembali jernih.",
+        16: "🐍 Ular ke 9: Tarik napas dalam — tidak apa-apa jika butuh jeda.",
+        26: "🐍 Ular ke 17: Lepaskan ekspektasi yang terlalu keras pada diri sendiri.",
+        33: "🐍 Ular ke 24: Kembali menata langkah paling dasar dengan tenang.",
+        36: "Selamat! Kamu sudah menuntaskan perjalanan refleksi dari bawah hingga puncak.",
+      };
+
+      let position = 0;
+      let rolls = 0;
+      let soundOn = true;
+
+      function createPawnElement() {
+        const pawnWrap = document.createElement("div");
+        pawnWrap.className = "player-pawn";
+        pawnWrap.innerHTML = `
+          <svg class="pawn-piece" viewBox="0 0 32 38" aria-hidden="true">
+            <ellipse cx="16" cy="33" rx="11" ry="3.5" fill="rgba(0,0,0,0.22)" />
+            <path d="M9 31 C10 24, 13 20, 13 16 L19 16 C19 20, 22 24, 23 31 Z"
+                  fill="#1e6642" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round" />
+            <rect x="11" y="14" width="10" height="3.2" rx="1.6"
+                  fill="#2d8a5b" stroke="#ffffff" stroke-width="1.5" />
+            <circle cx="16" cy="9.5" r="5.5"
+                    fill="#13442c" stroke="#ffffff" stroke-width="1.8" />
+            <circle cx="14.2" cy="7.8" r="1.5" fill="rgba(255,255,255,0.45)" />
+          </svg>
+          <span class="player-token">Kamu</span>
+        `;
+        return pawnWrap;
+      }
+
+      function playTone(freq = 520) {
+        if (!soundOn) return;
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          const ctx = new AudioCtx();
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          gain.gain.value = 0.05;
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.12);
+        } catch {
+          // Ignore audio restrictions
+        }
+      }
+
+      function getTileCoords(tileNum) {
+        const zeroIdx = tileNum - 1;
+        const rowFromBottom = Math.floor(zeroIdx / 6);
+        const visualRow = 5 - rowFromBottom;
+        const colInRow = zeroIdx % 6;
+        const visualCol = rowFromBottom % 2 === 0 ? colInRow : 5 - colInRow;
+
+        return {
+          row: visualRow,
+          col: visualCol,
+          cx: visualCol * 100 + 50,
+          cy: visualRow * 100 + 50,
+        };
+      }
+
+      function drawIllustratedSnakesAndLadders() {
+        if (!boardOverlay) return;
+        let svg = "";
+
+        Object.entries(ladders).forEach(([startStr, endStr]) => {
+          const start = getTileCoords(Number(startStr));
+          const end = getTileCoords(Number(endStr));
+          const dx = end.cx - start.cx;
+          const dy = end.cy - start.cy;
+          const len = Math.hypot(dx, dy);
+          const ux = dx / len;
+          const uy = dy / len;
+          const nx = -uy * 13;
+          const ny = ux * 13;
+
+          svg += `
+            <line x1="${start.cx + nx}" y1="${start.cy + ny}" x2="${end.cx + nx}" y2="${end.cy + ny}"
+                  stroke="#3b2618" stroke-width="6.5" stroke-linecap="round" />
+            <line x1="${start.cx + nx}" y1="${start.cy + ny}" x2="${end.cx + nx}" y2="${end.cy + ny}"
+                  stroke="#b78556" stroke-width="3.8" stroke-linecap="round" />
+
+            <line x1="${start.cx - nx}" y1="${start.cy - ny}" x2="${end.cx - nx}" y2="${end.cy - ny}"
+                  stroke="#3b2618" stroke-width="6.5" stroke-linecap="round" />
+            <line x1="${start.cx - nx}" y1="${start.cy - ny}" x2="${end.cx - nx}" y2="${end.cy - ny}"
+                  stroke="#b78556" stroke-width="3.8" stroke-linecap="round" />
+          `;
+
+          const rungs = Math.max(4, Math.floor(len / 26));
+          for (let i = 1; i < rungs; i++) {
+            const t = i / rungs;
+            const rx = start.cx + dx * t;
+            const ry = start.cy + dy * t;
+            svg += `
+              <line x1="${rx + nx}" y1="${ry + ny}" x2="${rx - nx}" y2="${ry - ny}"
+                    stroke="#3b2618" stroke-width="5.2" stroke-linecap="round" />
+              <line x1="${rx + nx}" y1="${ry + ny}" x2="${rx - nx}" y2="${ry - ny}"
+                    stroke="#c99768" stroke-width="2.8" stroke-linecap="round" />
+            `;
+          }
+
+          const leaf1X = start.cx + dx * 0.35 + nx * 1.3;
+          const leaf1Y = start.cy + dy * 0.35 + ny * 1.3;
+          const leaf2X = start.cx + dx * 0.72 - nx * 1.3;
+          const leaf2Y = start.cy + dy * 0.72 - ny * 1.3;
+          svg += `
+            <ellipse cx="${leaf1X}" cy="${leaf1Y}" rx="7" ry="3.5" transform="rotate(-25 ${leaf1X} ${leaf1Y})"
+                     fill="#5b8c67" stroke="#26422d" stroke-width="1.2" />
+            <ellipse cx="${leaf2X}" cy="${leaf2Y}" rx="7" ry="3.5" transform="rotate(30 ${leaf2X} ${leaf2Y})"
+                     fill="#5b8c67" stroke="#26422d" stroke-width="1.2" />
+          `;
+        });
+
+        Object.entries(snakes).forEach(([headStr, tailStr], idx) => {
+          const head = getTileCoords(Number(headStr));
+          const tail = getTileCoords(Number(tailStr));
+          const midX = (head.cx + tail.cx) / 2;
+          const midY = (head.cy + tail.cy) / 2;
+          const swing = idx % 2 === 0 ? 48 : -48;
+
+          const ctrl1X = head.cx + swing;
+          const ctrl1Y = (head.cy + midY) / 2;
+          const ctrl2X = tail.cx - swing;
+          const ctrl2Y = (midY + tail.cy) / 2;
+
+          const pathD = `M ${head.cx} ${head.cy} C ${ctrl1X} ${ctrl1Y}, ${ctrl2X} ${ctrl2Y}, ${tail.cx} ${tail.cy}`;
+
+          svg += `
+            <path d="${pathD}" fill="none" stroke="#472118" stroke-width="15" stroke-linecap="round" />
+            <path d="${pathD}" fill="none" stroke="#c86b51" stroke-width="11.5" stroke-linecap="round" />
+            <path d="${pathD}" fill="none" stroke="#96422c" stroke-width="5" stroke-dasharray="7 12" stroke-linecap="round" />
+            <path d="M ${head.cx - 12} ${head.cy + 2} L ${head.cx - 21} ${head.cy - 1} M ${head.cx - 18} ${head.cy} L ${head.cx - 22} ${head.cy + 4}"
+                  stroke="#9e2a2b" stroke-width="1.8" stroke-linecap="round" />
+            <ellipse cx="${head.cx}" cy="${head.cy}" rx="13" ry="10.5"
+                     fill="#c86b51" stroke="#472118" stroke-width="2.2" />
+            <circle cx="${head.cx - 4}" cy="${head.cy - 3}" r="2.2" fill="#231410" />
+            <circle cx="${head.cx - 4.6}" cy="${head.cy - 3.6}" r="0.8" fill="#ffffff" />
+          `;
+        });
+
+        boardOverlay.innerHTML = svg;
+      }
+
+      function renderBoard() {
+        if (!boardEl) return;
+        boardEl.innerHTML = "";
+        const activePawnTile = position === 0 ? 1 : position;
+
+        for (let visualRow = 0; visualRow < 6; visualRow++) {
+          const rowFromBottom = 5 - visualRow;
+          for (let visualCol = 0; visualCol < 6; visualCol++) {
+            const colInRow = rowFromBottom % 2 === 0 ? visualCol : 5 - visualCol;
+            const tileNum = rowFromBottom * 6 + colInRow + 1;
+
+            const tile = document.createElement("div");
+            tile.className = "tile";
+            if (tileNum === 1) tile.classList.add("start-tile");
+            if (ladders[tileNum]) tile.classList.add("ladder");
+            if (snakes[tileNum]) {
+              tile.classList.add("slide");
+              if (tileNum === 33) tile.classList.add("deep-slide");
+            }
+            if (tileNum === 36) tile.classList.add("finish");
+
+            let hint = "";
+            if (tileNum === 1) hint = "START";
+            else if (ladders[tileNum]) hint = `↑${ladders[tileNum]}`;
+            else if (snakes[tileNum]) hint = `↓${snakes[tileNum]}`;
+            else if (tileNum === 36) hint = "FINISH";
+
+            tile.innerHTML = `
+              <span class="tile-num">${tileNum}</span>
+              ${tileNum === 36 ? '<span class="finish-flag" aria-hidden="true">🚩</span>' : ""}
+              <span class="tile-hint">${hint}</span>
+            `;
+
+            if (activePawnTile === tileNum) {
+              tile.appendChild(createPawnElement());
+            }
+
+            boardEl.appendChild(tile);
+          }
+        }
+
+        drawIllustratedSnakesAndLadders();
+        playerPosEl.textContent = position === 0 ? "START (0)" : String(position);
+        rollCountEl.textContent = String(rolls);
+      }
+
+      rollDiceBtn?.addEventListener("click", () => {
+        if (position >= 36) {
+          boardMessage.textContent = "Putaran ini sudah selesai. Tekan 'Mulai Ulang' jika ingin berjalan lagi.";
+          return;
+        }
+
+        const dice = Math.floor(Math.random() * 6) + 1;
+        const faces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+        diceDisplay.textContent = faces[dice - 1];
+        rolls += 1;
+        playTone(480 + dice * 35);
+
+        position = Math.min(36, position + dice);
+
+        if (ladders[position]) {
+          const next = ladders[position];
+          boardMessage.textContent = tileNotes[position] || `Naik tangga ke petak ${next}!`;
+          position = next;
+        } else if (snakes[position]) {
+          const next = snakes[position];
+          boardMessage.textContent = tileNotes[position] || `Turun sejenak ke petak ${next} untuk menata napas.`;
+          position = next;
+        } else if (tileNotes[position]) {
+          boardMessage.textContent = tileNotes[position];
+        } else {
+          boardMessage.textContent = `Melangkah ${dice} petak ke posisi ${position}. Teruskan dengan tenang.`;
+        }
+
+        renderBoard();
+      });
+
+      resetBoardBtn?.addEventListener("click", () => {
+        position = 0;
+        rolls = 0;
+        diceDisplay.textContent = "🎲";
+        boardMessage.textContent =
+          "Kamu sudah memulai. Mengambil langkah pertama juga merupakan sebuah keberanian.";
+        renderBoard();
+      });
+
+      toggleSoundBtn?.addEventListener("click", () => {
+        soundOn = !soundOn;
+        toggleSoundBtn.textContent = soundOn ? "Sound On" : "Sound Off";
+      });
+
+      renderBoard();
+
+      /* =========================================================
+         6. TEMAN DENGAR (PENDAMPING REFLEKTIF LOKAL)
+         ========================================================= */
+      const chatMessages = document.getElementById("chatMessages");
+      const chatForm = document.getElementById("chatForm");
+      const chatInput = document.getElementById("chatInput");
+      const clearChatBtn = document.getElementById("clearChatBtn");
+
+      function appendMessage(text, sender = "bot") {
+        const div = document.createElement("div");
+        div.className = `msg ${sender === "user" ? "msg-user" : "msg-bot"}`;
+        div.textContent = text;
+        chatMessages?.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function generateEmpatheticReply(userText) {
+        const clean = userText.toLowerCase();
+        if (clean.includes("lelah") || clean.includes("capek") || clean.includes("kewalahan")) {
+          return "Wajar kalau kamu merasa lelah saat harus menanggung banyak hal. Kalau diibaratkan, bagian mana yang paling terasa berat hari ini?";
+        }
+        if (clean.includes("pikiran") || clean.includes("overthinking") || clean.includes("cemas")) {
+          return "Saat pikiran berputar terlalu cepat, tubuh sering ikut tegang. Mau coba tarik napas pelan 4 hitungan di bagian Ruang Tenang, atau ceritakan apa yang paling memicu pikiran itu?";
+        }
+        if (clean.includes("sedih") || clean.includes("sendiri") || clean.includes("kecewa")) {
+          return "Terima kasih sudah mau membagikannya di sini. Perasaan itu tidak perlu buru-buru dihilangkan — kamu ingin didengarkan lebih lanjut atau mencari satu langkah kecil untuk hari ini?";
+        }
+        return "Aku mendengarmu. Tidak ada jawaban yang harus sempurna di sini — kalau kamu mau mengurai satu per satu, kita bisa pelan-pelan.";
+      }
+
+      chatForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const val = chatInput.value.trim();
+        if (!val) return;
+        appendMessage(val, "user");
+        chatInput.value = "";
+
+        setTimeout(() => {
+          appendMessage(generateEmpatheticReply(val), "bot");
+        }, 350);
+      });
+
+      document.querySelectorAll(".chip-btn").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          const prompt = chip.dataset.prompt || "";
+          if (!prompt) return;
+          appendMessage(prompt, "user");
+          setTimeout(() => {
+            appendMessage(generateEmpatheticReply(prompt), "bot");
+          }, 350);
+        });
+      });
+
+      clearChatBtn?.addEventListener("click", () => {
+        chatMessages.innerHTML = `
+          <div class="msg msg-bot">
+            Hai, aku di sini untuk mendengarkan. Kamu bisa cerita apa saja — tidak ada penilaian di ruang ini.
+            Apa yang sedang kamu rasakan hari ini?
+          </div>
+        `;
+      });
+
+      /* =========================================================
+         7. RUANG BERBAGI (DINDING ANONIM — LOCALSTORAGE)
+         ========================================================= */
+      const wallForm = document.getElementById("wallForm");
+      const wallName = document.getElementById("wallName");
+      const wallText = document.getElementById("wallText");
+      const wallFeed = document.getElementById("wallFeed");
+      const STORAGE_KEY = "ruang_dengar_wall_v1";
+
+      function loadWallPosts() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveWallPosts(posts) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+        } catch {
+          // Ignore storage quota errors
+        }
+      }
+
+      function renderWallPosts() {
+        const posts = loadWallPosts();
+        if (!wallFeed) return;
+
+        if (!posts.length) {
+          wallFeed.innerHTML = `<p class="empty-wall">Belum ada cerita. Jadilah yang pertama berbagi — ruang ini menunggumu.</p>`;
+          return;
+        }
+
+        wallFeed.innerHTML = posts
+          .map(
+            (p) => `
+          <article class="wall-post">
+            <div class="wall-post-head">
+              <strong>${escapeHtml(p.name || "Anonim")}</strong>
+              <span>${escapeHtml(p.time)}</span>
+            </div>
+            <p>${escapeHtml(p.text)}</p>
+          </article>
+        `
+          )
+          .join("");
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;");
+      }
+
+      wallForm?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const text = wallText.value.trim();
+        if (!text) return;
+
+        const name = wallName.value.trim() || "Anonim";
+        const time = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
+        const posts = loadWallPosts();
+        posts.unshift({ name, text, time });
+        saveWallPosts(posts.slice(0, 30));
+
+        wallText.value = "";
+        renderWallPosts();
+      });
+
+      renderWallPosts();
+    });
+  </script>
+</body>
+</html>
