@@ -1085,76 +1085,98 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-7. RUANG BERBAGI (DINDING ANONIM — LOCALSTORAGE)
+7. RUANG BERBAGI (DINDING ANONIM — SUPABASE BERSAMA)
      ========================================================= */
   const wallForm = document.getElementById("wallForm");
   const wallName = document.getElementById("wallName");
   const wallText = document.getElementById("wallText");
   const wallFeed = document.getElementById("wallFeed");
-  const STORAGE_KEY = "ruang_dengar_wall_v1";
 
-  function loadWallPosts() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  function saveWallPosts(posts) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
-    } catch {
-      // Ignore storage quota errors
-    }
-  }
-
-  function renderWallPosts() {
-    const posts = loadWallPosts();
-    if (!wallFeed) return;
-
-    if (!posts.length) {
-      wallFeed.innerHTML = `<p class="empty-wall">Belum ada cerita. Jadilah yang pertama berbagi — ruang ini menunggumu.</p>`;
-      return;
-    }
-
-    wallFeed.innerHTML = posts
-      .map(
-        (p) => `
-      <article class="wall-post">
-        <div class="wall-post-head">
-          <strong>${escapeHtml(p.name || "Anonim")}</strong>
-          <span>${escapeHtml(p.time)}</span>
-        </div>
-        <p>${escapeHtml(p.text)}</p>
-      </article>
-    `
-      )
-      .join("");
-  }
+  const SUPABASE_URL = "https://heyfdgnauvyqpaopyxfm.supabase.co";
+  const SUPABASE_ANON_KEY =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhleWZkZ25hdXZ5cXBhb3B5eGZtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU1MjEzOTAsImV4cCI6MjExMTA5NzM5MH0.XcIkzpN4jFePnUdJUTvOoTGHuBaio2BzMa_4znbQ-mo";
+  const WALL_ENDPOINT = `${SUPABASE_URL}/rest/v1/wall_posts`;
 
   function escapeHtml(str) {
-    return str
+    return String(str || "")
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;")
       .replaceAll('"', "&quot;");
   }
 
-  wallForm?.addEventListener("submit", (e) => {
+  async function renderWallPosts() {
+    if (!wallFeed) return;
+
+    try {
+      const res = await fetch(`${WALL_ENDPOINT}?select=*&order=created_at.desc&limit=30`, {
+        headers: {
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+      });
+
+      if (!res.ok) throw new Error("Gagal memuat cerita");
+      const posts = await res.json();
+
+      if (!posts.length) {
+        wallFeed.innerHTML = `<p class="empty-wall">Belum ada cerita. Jadilah yang pertama berbagi — ruang ini menunggumu.</p>`;
+        return;
+      }
+
+      wallFeed.innerHTML = posts
+        .map(
+          (p) => `
+        <article class="wall-post">
+          <div class="wall-post-head">
+            <strong>${escapeHtml(p.name || "Anonim")}</strong>
+            <span>${escapeHtml(p.time)}</span>
+          </div>
+          <p>${escapeHtml(p.text)}</p>
+        </article>
+      `
+        )
+        .join("");
+    } catch {
+      wallFeed.innerHTML = `<p class="empty-wall">Tidak dapat memuat cerita saat ini. Coba muat ulang halaman.</p>`;
+    }
+  }
+
+  wallForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = wallText.value.trim();
     if (!text) return;
 
-    const name = wallName.value.trim() || "Anonim";
-    const time = new Date().toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit" });
-    const posts = loadWallPosts();
-    posts.unshift({ name, text, time });
-    saveWallPosts(posts.slice(0, 30));
+    const submitBtn = wallForm.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
 
-    wallText.value = "";
-    renderWallPosts();
+    const name = wallName.value.trim() || "Anonim";
+    const time = new Date().toLocaleTimeString("id-ID", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    try {
+      const res = await fetch(WALL_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          Prefer: "return=minimal",
+        },
+        body: JSON.stringify({ name, text, time }),
+      });
+
+      if (!res.ok) throw new Error("Gagal mengirim cerita");
+
+      wallText.value = "";
+      await renderWallPosts();
+    } catch {
+      alert("Gagal membagikan cerita. Periksa koneksi internet atau konfigurasi Supabase.");
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+    }
   });
 
   renderWallPosts();
