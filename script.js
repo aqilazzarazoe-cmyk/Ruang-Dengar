@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* =========================================================
-1. MOBILE NAV & CRISIS MODAL
+  1. MOBILE NAV & CRISIS MODAL
      ========================================================= */
   const menuToggle = document.getElementById("menuToggle");
   const navLinks = document.getElementById("navLinks");
@@ -36,21 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-2. ASESMEN 3 MENIT — 10 PERTANYAAN REFLEKTIF + UNDUH PDF
+  2. ASESMEN 3 MENIT — 10 PERTANYAAN REFLEKTIF + UNDUH PDF
      ========================================================= */
   const assessmentQuestions = [
-    // Reaksi Kognitif (4 soal -> max 12)
     { pillar: "kognitif", text: "Pikiran terasa berputar-putar atau sulit berhenti saat sedang beristirahat?" },
     { pillar: "kognitif", text: "Sulit memusatkan perhatian pada pekerjaan, bacaan, atau hal sederhana?" },
     { pillar: "kognitif", text: "Cenderung langsung membayangkan skenario terburuk ketika ada masalah?" },
     { pillar: "kognitif", text: "Merasa terbebani saat harus mengambil keputusan kecil sehari-hari?" },
-
-    // Skala Emosi (3 soal -> max 9)
     { pillar: "emosi", text: "Merasa mudah tegang, cemas, atau gelisah tanpa alasan yang jelas?" },
     { pillar: "emosi", text: "Suasana hati naik-turun dengan cepat dalam beberapa hari terakhir?" },
     { pillar: "emosi", text: "Energi emosional terasa cepat habis atau kehilangan minat pada hal biasa?" },
-
-    // Gaya Coping (3 soal -> max 9)
     { pillar: "coping", text: "Kesulitan memberi jeda istirahat ketika tanggung jawab menumpuk?" },
     { pillar: "coping", text: "Cenderung memendam beban sendirian meski sebenarnya butuh didengarkan?" },
     { pillar: "coping", text: "Rutinitas dasar seperti tidur, makan, atau menenangkan diri terasa berantakan?" },
@@ -74,6 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderQuestion() {
     const item = assessmentQuestions[qIndex];
+    if (!item) return;
     questionCounter.textContent = `Pertanyaan ${qIndex + 1} dari ${assessmentQuestions.length}`;
     questionText.textContent = item.text;
     assessmentProgress.style.width = `${((qIndex + 1) / assessmentQuestions.length) * 100}%`;
@@ -86,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pctKognitif = Math.round((scores.kognitif / 12) * 100);
     const pctEmosi = Math.round((scores.emosi / 9) * 100);
     const pctCoping = Math.round((scores.coping / 9) * 100);
-    const total = scores.kognitif + scores.emosi + scores.coping; // max 30
+    const total = scores.kognitif + scores.emosi + scores.coping;
 
     const titleEl = document.getElementById("resultTitle");
     const summaryEl = document.getElementById("resultSummary");
@@ -161,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "3 - Hampir setiap hari",
     ];
 
-    // Header hijau hutan
     doc.setFillColor(19, 68, 44);
     doc.rect(0, 0, 210, 34, "F");
     doc.setTextColor(255, 255, 255);
@@ -172,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.setFontSize(10);
     doc.text(`Tanggal Refleksi: ${r.date}  |  Skor Total: ${r.total} / 30`, 16, 25);
 
-    // Status utama
     let y = 46;
     doc.setTextColor(20, 38, 28);
     doc.setFont("helvetica", "bold");
@@ -187,7 +181,6 @@ document.addEventListener("DOMContentLoaded", () => {
     doc.text(wrappedSummary, 16, y);
     y += wrappedSummary.length * 5.5 + 6;
 
-    // Rincian Tiga Pilar
     doc.setDrawColor(200, 220, 208);
     doc.line(16, y, 194, y);
     y += 8;
@@ -217,7 +210,6 @@ document.addEventListener("DOMContentLoaded", () => {
       y += 9;
     });
 
-    // Ringkasan 10 Jawaban
     y += 3;
     doc.line(16, y, 194, y);
     y += 8;
@@ -244,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
       y += 6;
     });
 
-    // Catatan Disclaimer
     if (y > 268) {
       doc.addPage();
       y = 20;
@@ -265,18 +256,18 @@ document.addEventListener("DOMContentLoaded", () => {
     qIndex = 0;
     scores = { kognitif: 0, emosi: 0, coping: 0 };
     userAnswersLog = [];
-    assessmentForm.classList.add("hidden");
-    assessmentResult.classList.add("hidden");
-    assessmentPlaceholder.classList.remove("hidden");
+    assessmentForm?.classList.add("hidden");
+    assessmentResult?.classList.add("hidden");
+    assessmentPlaceholder?.classList.remove("hidden");
   }
 
   startAssessmentBtn?.addEventListener("click", () => {
     qIndex = 0;
     scores = { kognitif: 0, emosi: 0, coping: 0 };
     userAnswersLog = [];
-    assessmentPlaceholder.classList.add("hidden");
-    assessmentResult.classList.add("hidden");
-    assessmentForm.classList.remove("hidden");
+    assessmentPlaceholder?.classList.add("hidden");
+    assessmentResult?.classList.add("hidden");
+    assessmentForm?.classList.remove("hidden");
     renderQuestion();
   });
 
@@ -284,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     btn.addEventListener("click", () => {
       const val = Number(btn.dataset.val || 0);
       const item = assessmentQuestions[qIndex];
+      if (!item) return;
       scores[item.pillar] += val;
       userAnswersLog.push({ question: item.text, score: val });
       qIndex += 1;
@@ -302,13 +294,13 @@ document.addEventListener("DOMContentLoaded", () => {
     qIndex = 0;
     scores = { kognitif: 0, emosi: 0, coping: 0 };
     userAnswersLog = [];
-    assessmentResult.classList.add("hidden");
-    assessmentForm.classList.remove("hidden");
+    assessmentResult?.classList.add("hidden");
+    assessmentForm?.classList.remove("hidden");
     renderQuestion();
   });
 
   /* =========================================================
-3. RUANG TENANG — BOX BREATHING (4-4-4-4, 5 SIKLUS)
+  3. RUANG TENANG — BOX BREATHING (4-4-4-4, 5 SIKLUS)
      ========================================================= */
   const phases = [
     { name: "Tarik napas", hint: "Hirup perlahan lewat hidung", mode: "expand" },
@@ -335,17 +327,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function updateCycleUI() {
     cycleDots.forEach((dot, i) => dot.classList.toggle("filled", i < completedCycles));
-    cycleLabel.textContent = `${completedCycles}/${targetCycles} siklus`;
+    if (cycleLabel) cycleLabel.textContent = `${completedCycles}/${targetCycles} siklus`;
   }
 
   function stepBreath() {
     const current = phases[phaseIdx];
-    breathPhase.textContent = current.name;
-    breathInstruction.textContent = current.hint;
-    breathCount.textContent = String(secLeft);
+    if (breathPhase) breathPhase.textContent = current.name;
+    if (breathInstruction) breathInstruction.textContent = current.hint;
+    if (breathCount) breathCount.textContent = String(secLeft);
 
-    breathCircle.classList.remove("expand", "contract");
-    if (current.mode) breathCircle.classList.add(current.mode);
+    breathCircle?.classList.remove("expand", "contract");
+    if (current.mode) breathCircle?.classList.add(current.mode);
 
     secLeft -= 1;
 
@@ -360,10 +352,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (completedCycles >= targetCycles) {
           stopBreath();
-          breathPhase.textContent = "Selesai";
-          breathInstruction.textContent = "5 siklus napas selesai. Rasakan perbedaan di tubuhmu.";
-          breathCount.textContent = "✓";
-          breathCircle.classList.remove("expand", "contract");
+          if (breathPhase) breathPhase.textContent = "Selesai";
+          if (breathInstruction) {
+            breathInstruction.textContent = "5 siklus napas selesai. Rasakan perbedaan di tubuhmu.";
+          }
+          if (breathCount) breathCount.textContent = "✓";
+          breathCircle?.classList.remove("expand", "contract");
         }
       }
     }
@@ -375,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCycleUI();
     }
     isBreathing = true;
-    breathToggleBtn.textContent = "❚❚ Jeda";
+    if (breathToggleBtn) breathToggleBtn.textContent = "❚❚ Jeda";
     phaseIdx = 0;
     secLeft = 4;
     stepBreath();
@@ -386,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
     isBreathing = false;
     clearInterval(breathTimer);
     breathTimer = null;
-    breathToggleBtn.textContent = "▶ Mulai";
+    if (breathToggleBtn) breathToggleBtn.textContent = "▶ Mulai";
   }
 
   function resetBreath() {
@@ -395,10 +389,10 @@ document.addEventListener("DOMContentLoaded", () => {
     secLeft = 4;
     completedCycles = 0;
     updateCycleUI();
-    breathCount.textContent = "4";
-    breathPhase.textContent = "Siap?";
-    breathInstruction.textContent = "Tekan mulai dan ikuti 5 siklus penuh";
-    breathCircle.classList.remove("expand", "contract");
+    if (breathCount) breathCount.textContent = "4";
+    if (breathPhase) breathPhase.textContent = "Siap?";
+    if (breathInstruction) breathInstruction.textContent = "Tekan mulai dan ikuti 5 siklus penuh";
+    breathCircle?.classList.remove("expand", "contract");
   }
 
   breathToggleBtn?.addEventListener("click", () => {
@@ -409,7 +403,7 @@ document.addEventListener("DOMContentLoaded", () => {
   breathResetBtn?.addEventListener("click", resetBreath);
 
   /* =========================================================
-4. CHECK-IN HARIAN (3 LANGKAH)
+  4. CHECK-IN HARIAN (3 LANGKAH)
      ========================================================= */
   const steps = Array.from(document.querySelectorAll(".checkin-step"));
   const stepLabel = document.getElementById("checkinStepLabel");
@@ -427,16 +421,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (currentStep < steps.length) {
         steps.forEach((s, idx) => s.classList.toggle("active", idx === currentStep));
-        stepLabel.textContent = `0${currentStep + 1} DARI 03`;
+        if (stepLabel) stepLabel.textContent = `0${currentStep + 1} DARI 03`;
       } else {
         steps.forEach((s) => s.classList.remove("active"));
-        stepLabel.textContent = "SELESAI";
-        checkinSummaryList.innerHTML = `
-          <li><strong>Kondisi hari-hari:</strong> ${checkinAnswers[0]}</li>
-          <li><strong>Fokus energi:</strong> ${checkinAnswers[1]}</li>
-          <li><strong>Langkah ramah diri:</strong> ${checkinAnswers[2]}</li>
-        `;
-        checkinSummary.classList.remove("hidden");
+        if (stepLabel) stepLabel.textContent = "SELESAI";
+        if (checkinSummaryList) {
+          checkinSummaryList.innerHTML = `
+            <li><strong>Kondisi hari-hari:</strong> ${checkinAnswers[0]}</li>
+            <li><strong>Fokus energi:</strong> ${checkinAnswers[1]}</li>
+            <li><strong>Langkah ramah diri:</strong> ${checkinAnswers[2]}</li>
+          `;
+        }
+        checkinSummary?.classList.remove("hidden");
       }
     });
   });
@@ -444,13 +440,13 @@ document.addEventListener("DOMContentLoaded", () => {
   restartCheckinBtn?.addEventListener("click", () => {
     currentStep = 0;
     checkinAnswers.length = 0;
-    checkinSummary.classList.add("hidden");
-    stepLabel.textContent = "01 DARI 03";
+    checkinSummary?.classList.add("hidden");
+    if (stepLabel) stepLabel.textContent = "01 DARI 03";
     steps.forEach((s, idx) => s.classList.toggle("active", idx === 0));
   });
 
   /* =========================================================
-5. ULAR TANGGA REFLEKSI (TAHAPAN LOMPAT SERAGAM TIAP KOTAK)
+  5. ULAR TANGGA REFLEKSI (TAHAPAN LOMPAT SERAGAM TIAP KOTAK)
      ========================================================= */
   const boardEl = document.getElementById("snakeBoard");
   const boardOverlay = document.getElementById("boardOverlay");
@@ -502,9 +498,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const style = document.createElement("style");
     style.id = "pionHopStyle";
     style.textContent = `
-      #snakeBoard {
-        position: relative;
-      }
+      #snakeBoard { position: relative; }
       .flying-pion {
         position: absolute;
         z-index: 25;
@@ -556,12 +550,9 @@ document.addEventListener("DOMContentLoaded", () => {
       gain.connect(ctx.destination);
       osc.start();
       osc.stop(ctx.currentTime + 0.12);
-    } catch {
-      // Ignore audio restrictions
-    }
+    } catch {}
   }
 
-  // Konversi nomor petak (1..36) ke posisi baris & kolom visual (bawah ke atas, zigzag)
   function getTileCoords(tileNum) {
     const zeroIdx = tileNum - 1;
     const rowFromBottom = Math.floor(zeroIdx / 6);
@@ -590,10 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const coords = getTileCoords(tileNum);
     const w = boardEl.clientWidth || 600;
     const h = boardEl.clientHeight || 600;
-    return {
-      x: (coords.cx / 600) * w,
-      y: (coords.cy / 600) * h,
-    };
+    return { x: (coords.cx / 600) * w, y: (coords.cy / 600) * h };
   }
 
   function ensureFlyingPion() {
@@ -768,7 +756,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isAnimatingMove) return;
 
     if (position >= 36) {
-      boardMessage.textContent = "Putaran ini sudah selesai. Tekan 'Mulai Ulang' jika ingin berjalan lagi.";
+      if (boardMessage) {
+        boardMessage.textContent = "Putaran ini sudah selesai. Tekan 'Mulai Ulang' jika ingin berjalan lagi.";
+      }
       return;
     }
 
@@ -786,7 +776,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (startPos === 0 && targetStep >= 1) {
       const walkNote = STEP_WALK_NOTES[0];
-      boardMessage.textContent = `Dadu ${dice} (1/${dice}) → Kotak 1: ${walkNote}`;
+      if (boardMessage) boardMessage.textContent = `Dadu ${dice} (1/${dice}) → Kotak 1: ${walkNote}`;
       await hopToTile(1, 460, true);
     }
 
@@ -794,27 +784,31 @@ document.addEventListener("DOMContentLoaded", () => {
       const nextTile = position + 1;
       const stepIdx = nextTile - startPos;
       const walkNote = STEP_WALK_NOTES[(stepIdx - 1) % STEP_WALK_NOTES.length];
-      boardMessage.textContent = `Dadu ${dice} (${stepIdx}/${dice}) → Kotak ${nextTile}: ${walkNote}`;
+      if (boardMessage) {
+        boardMessage.textContent = `Dadu ${dice} (${stepIdx}/${dice}) → Kotak ${nextTile}: ${walkNote}`;
+      }
       await hopToTile(nextTile, 450 + stepIdx * 32, false);
     }
 
     if (ladders[position]) {
       const next = ladders[position];
-      boardMessage.textContent = tileNotes[position] || `Naik tangga ke petak ${next}!`;
+      if (boardMessage) boardMessage.textContent = tileNotes[position] || `Naik tangga ke petak ${next}!`;
       await sleep(220);
       await hopToTile(next, 680, false);
     } else if (snakes[position]) {
       const next = snakes[position];
-      boardMessage.textContent =
-        SNAKE_ENCOURAGEMENT_NOTES[position] ||
-        `🐍 Kena ular ke ${next}: Tidak apa-apa melambat sejenak, kamu tetap kuat untuk terus melangkah!`;
+      if (boardMessage) {
+        boardMessage.textContent =
+          SNAKE_ENCOURAGEMENT_NOTES[position] ||
+          `🐍 Kena ular ke ${next}: Tidak apa-apa melambat sejenak, kamu tetap kuat untuk terus melangkah!`;
+      }
       await sleep(260);
       await hopToTile(next, 340, false);
     } else if (tileNotes[position]) {
-      boardMessage.textContent = tileNotes[position];
+      if (boardMessage) boardMessage.textContent = tileNotes[position];
     } else {
       const endNote = STEP_WALK_NOTES[(dice - 1) % STEP_WALK_NOTES.length];
-      boardMessage.textContent = `Sampai di kotak ${position} (${dice} langkah). ${endNote}`;
+      if (boardMessage) boardMessage.textContent = `Sampai di kotak ${position} (${dice} langkah). ${endNote}`;
     }
 
     isAnimatingMove = false;
@@ -826,8 +820,10 @@ document.addEventListener("DOMContentLoaded", () => {
     position = 0;
     rolls = 0;
     if (diceDisplay) diceDisplay.textContent = "🎲";
-    boardMessage.textContent =
-      "Kamu sudah memulai. Mengambil langkah pertama juga merupakan sebuah keberanian.";
+    if (boardMessage) {
+      boardMessage.textContent =
+        "Kamu sudah memulai. Mengambil langkah pertama juga merupakan sebuah keberanian.";
+    }
     if (flyingPionEl) {
       flyingPionEl.style.opacity = "0";
       flyingPionEl.classList.remove("hopping");
@@ -844,7 +840,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderBoard();
 
   /* =========================================================
-6. TEMAN DENGAR (PEMETAAN INTENT + ANTI-PENGULANGAN)
+  6. TEMAN DENGAR (PEMETAAN INTENT + ANTI-PENGULANGAN)
      ========================================================= */
   const chatMessages = document.getElementById("chatMessages");
   const chatForm = document.getElementById("chatForm");
@@ -1001,16 +997,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function generateEmpatheticReply(userText) {
     const clean = normalizeText(userText);
-    if (!clean) {
-      return pickNonRepeating(FALLBACK_REPLIES);
-    }
+    if (!clean) return pickNonRepeating(FALLBACK_REPLIES);
 
     const hasCrisisSignal = CRISIS_KEYWORDS.some((phrase) =>
       clean.includes(normalizeText(phrase))
     );
-    if (hasCrisisSignal) {
-      return pickNonRepeating(CRISIS_REPLIES);
-    }
+    if (hasCrisisSignal) return pickNonRepeating(CRISIS_REPLIES);
 
     let bestMatch = null;
     let highestScore = 0;
@@ -1040,9 +1032,7 @@ document.addEventListener("DOMContentLoaded", () => {
     div.className = `msg ${sender === "user" ? "msg-user" : "msg-bot"}`;
     div.textContent = text;
     chatMessages?.appendChild(div);
-    if (chatMessages) {
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+    if (chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
   }
 
   function triggerTemanDengarReply(userText, intentId = "") {
@@ -1085,7 +1075,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* =========================================================
-7. RUANG BERBAGI (DINDING ANONIM — SUPABASE BERSAMA)
+  7. RUANG BERBAGI (DINDING ANONIM — SUPABASE BERSAMA)
      ========================================================= */
   const wallForm = document.getElementById("wallForm");
   const wallName = document.getElementById("wallName");
